@@ -32,7 +32,7 @@ include (ROOT_PATH . "/app/database/db.php");
             <div class="post">
                 <img src="assets/images/burger.jpg" alt="" class="slider-image">
                 <div class="post-info">
-                    <h4><a href="single.html">How to make the most delicious burger</a></h4>
+                    <h4><a href="single.php">How to make the most delicious burger</a></h4>
                     <i class="far fa-user"> Georgii Krayushkin</i>
                     &nbsp;
                     <i class="far fa-calendar"> 27 Января, 2024</i>

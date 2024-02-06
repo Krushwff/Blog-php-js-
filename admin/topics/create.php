@@ -1,5 +1,5 @@
 <?php include("../../path.php");
-include (ROOT_PATH . "/app/database/db.php");?>
+include(ROOT_PATH . "/app/controllers/topics.php");?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -47,7 +47,7 @@ include (ROOT_PATH . "/app/database/db.php");?>
                     </script>
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-big">Add Topic</button>
+                    <button type="submit" name="add-topic" class="btn btn-big">Add Topic</button>
                 </div>
             </form>
         </div>
