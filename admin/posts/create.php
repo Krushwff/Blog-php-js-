@@ -1,5 +1,5 @@
 <?php include("../../path.php");
-include (ROOT_PATH . "/app/database/db.php");?>
+include(ROOT_PATH . "/app/controllers/posts.php");?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -30,14 +30,15 @@ include (ROOT_PATH . "/app/database/db.php");?>
 
         <div class="content">
             <h2 class="page-title">Manage Post</h2>
+            <?php include(ROOT_PATH . "/app/helpers/formErrors.php"); ?>
             <form action="create.php" method="post">
                 <div>
                     <label>Title</label>
-                    <input type="text" name="title" class="text-input">
+                    <input type="text" name="title" value="<?php echo $title ?>" class="text-input">
                 </div>
                 <div>
                     <label>Body</label>
-                    <textarea name="body" id="body"></textarea>
+                    <textarea name="body" id="body"><?php echo $body ?></textarea>
                     <script>
                         ClassicEditor.create(document.querySelector("#body")).catch(
                             (error) => {
@@ -52,13 +53,26 @@ include (ROOT_PATH . "/app/database/db.php");?>
                 </div>
                 <div>
                     <label>Topic</label>
-                    <select name="topic" class="text-input">
-                        <option value="Poetry">Poetry</option>
-                        <option value="Life lesson">Life lesson</option>
+                    <select name="topic_id" class="text-input">
+                        <option value=""></option>
+                    <?php foreach ($topics as $key => $topic): ?>
+                    <?php if (!empty($topic) && $topic_id == $topic['id']):?>
+                            <option selected value="<?php echo $topic['id'] ?>"><?php echo $topic['name'] ?></option>
+                        <?php else: ?>
+                            <option value="<?php echo $topic['id'] ?>"><?php echo $topic['name'] ?></option>
+                        <?php endif; ?>
+
+                        <?php endforeach; ?>
                     </select>
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-big">Add Post</button>
+                    <label>
+                        <input type="checkbox" name="published">
+                        Publish
+                    </label>
+                </div>
+                <div>
+                    <button type="submit" name="add-post" class="btn btn-big">Add Post</button>
                 </div>
             </form>
         </div>

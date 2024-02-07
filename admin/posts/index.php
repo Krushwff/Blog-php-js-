@@ -1,5 +1,5 @@
 <?php include("../../path.php");
-include (ROOT_PATH . "/app/database/db.php");?>
+include(ROOT_PATH . "/app/controllers/posts.php");?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -29,6 +29,7 @@ include (ROOT_PATH . "/app/database/db.php");?>
 
         <div class="content">
 <h2 class="page-title">Manage Post</h2>
+            <?php include(ROOT_PATH . "/app/includes/messages.php"); ?>
             <table>
                 <thead>
                 <th>SN</th>
@@ -37,22 +38,20 @@ include (ROOT_PATH . "/app/database/db.php");?>
                 <th colspan="3">Action</th>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>This is a first post</td>
-                    <td>Krayushkin</td>
-                    <td><a href="#" class="edit">edit</a></td>
-                    <td><a href="#" class="delete">delete</a></td>
-                    <td><a href="#" class="publish">publish</a></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>This is a second post</td>
-                    <td>Ivanov</td>
-                    <td><a href="#" class="edit">edit</a></td>
-                    <td><a href="#" class="delete">delete</a></td>
-                    <td><a href="#" class="publish">publish</a></td>
-                </tr>
+                <?php foreach ($posts as $key => $post): ?>
+                    <tr>
+                        <td><?php echo $key + 1; ?></td>
+                        <td><?php echo $post['title'];?></td>
+                        <td>Krayushkin</td>
+                        <td><a href="#" class="edit">edit</a></td>
+                        <td><a href="#" class="delete">delete</a></td>
+                        <?php if ($post['published']):?>
+                            <td><a href="#" class="unpublish">unpublish</a></td>
+                        <?php else: ?>
+                            <td><a href="#" class="publish">publish</a></td>
+                        <?php endif;?>
+                    </tr>
+                <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
