@@ -1,5 +1,5 @@
 <?php include("../../path.php");
-include (ROOT_PATH . "/app/database/db.php");?>
+include(ROOT_PATH . "/app/controllers/users.php");?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -29,6 +29,7 @@ include (ROOT_PATH . "/app/database/db.php");?>
 
         <div class="content">
             <h2 class="page-title">Manage Users</h2>
+            <?php include(ROOT_PATH . "/app/includes/messages.php"); ?>
             <table>
                 <thead>
                 <th>SN</th>
