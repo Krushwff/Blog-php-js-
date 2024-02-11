@@ -1,5 +1,18 @@
 <?php include("path.php");
-include(ROOT_PATH . "/app/controllers/topics.php");?>
+include(ROOT_PATH . "/app/controllers/topics.php");
+
+$posts = array();
+$postsTitle = 'Recent Posts';
+
+if (isset($_POST['search-term'])){
+    $postsTitle = "You searched for'" .$_POST['search-term'] . "'";
+    $posts = searchPosts($_POST['search-term']);
+}else{
+    $posts = getPublishedPosts();
+}
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -28,132 +41,43 @@ include(ROOT_PATH . "/app/controllers/topics.php");?>
         <i class="fas fa-chevron-right next"></i>
         <div class="post-wrapper">
 
+            <?php foreach ($posts as $post): ?>
             <div class="post">
-                <img src="assets/images/burger.jpg" alt="" class="slider-image">
-                <div class="post-info">
-                    <h4><a href="single.php">How to make the most delicious burger</a></h4>
-                    <i class="far fa-user"> Georgii Krayushkin</i>
-                    &nbsp;
-                    <i class="far fa-calendar"> 27 Января, 2024</i>
-                </div>
+            <img src="<?php echo BASE_URL . '/assets/images/' . $post['image'];?>" alt="" class="slider-image">
+            <div class="post-info">
+                <h4><a href="single.php"><?php echo $post['title'];?></a></h4>
+                <i class="far fa-user"> <?php echo $post['username'];?></i>
+                &nbsp;
+                <i class="far fa-calendar"> <?php echo date('F j, Y', strtotime($post['created_at']));?></i>
             </div>
+        </div>
+            <?php endforeach;?>
 
-            <div class="post">
-                <img src="assets/images/burger.jpg" alt="" class="slider-image">
-                <div class="post-info">
-                    <h4><a href="single.php">How to make the most delicious burger</a></h4>
-                    <i class="far fa-user"> Georgii Krayushkin</i>
-                    &nbsp;
-                    <i class="far fa-calendar"> 27 Января, 2024</i>
-                </div>
-            </div>
 
-            <div class="post">
-                <img src="assets/images/burger.jpg" alt="" class="slider-image">
-                <div class="post-info">
-                    <h4><a href="single.php">How to make the most delicious burger</a></h4>
-                    <i class="far fa-user"> Georgii Krayushkin</i>
-                    &nbsp;
-                    <i class="far fa-calendar"> 27 Января, 2024</i>
-                </div>
-            </div>
 
-            <div class="post">
-                <img src="assets/images/burger.jpg" alt="" class="slider-image">
-                <div class="post-info">
-                    <h4><a href="single.php">How to make the most delicious burger</a></h4>
-                    <i class="far fa-user"> Georgii Krayushkin</i>
-                    &nbsp;
-                    <i class="far fa-calendar"> 27 Января, 2024</i>
-                </div>
-            </div>
-
-            <div class="post">
-                <img src="assets/images/burger.jpg" alt="" class="slider-image">
-                <div class="post-info">
-                    <h4><a href="single.php">How to make the most delicious burger</a></h4>
-                    <i class="far fa-user"> Georgii Krayushkin</i>
-                    &nbsp;
-                    <i class="far fa-calendar"> 27 Января, 2024</i>
-                </div>
-            </div>
-
-            <div class="post">
-                <img src="assets/images/burger.jpg" alt="" class="slider-image">
-                <div class="post-info">
-                    <h4><a href="single.php">How to make the most delicious burger</a></h4>
-                    <i class="far fa-user"> Georgii Krayushkin</i>
-                    &nbsp;
-                    <i class="far fa-calendar"> 27 Января, 2024</i>
-                </div>
-            </div>
         </div>
     </div>
 <!--    CONTENT-->
 <div class="content clearfix">
     <!--    MAIN CONTENT-->
     <div class="main-content">
-        <h1 class="recent-post-title">Recent Post</h1>
-
-        <div class="post clearfix">
-            <img src="assets/images/prog-post.jpg" alt="" class="post-image">
-            <div class="post-preview">
-                <h2><a href="single.php">How to make the most delicious burger</a></h2>
-                <i class="far fa-user"> Krayushkin Georgii</i>
-                &nbsp;
-                <i class="far fa-calendar"> 27 Января, 2024</i>
-                <p class="preview-text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Alias, dolor dolores nostrum porro possimus tempora.
-                </p>
-                <a href="single.php" class="btn read-more">Read More</a>
+        <h1 class="recent-post-title"><?php echo $postsTitle ?></h1>
+        <?php foreach ($posts as $post): ?>
+            <div class="post clearfix">
+                <img src="<?php echo BASE_URL . '/assets/images/' . $post['image'];?>" alt="" class="post-image">
+                <div class="post-preview">
+                    <h2><a href="single.php"><?php echo $post['title'];?></a></h2>
+                    <i class="far fa-user"> <?php echo $post['username'];?></i>
+                    &nbsp;
+                    <i class="far fa-calendar"> <?php echo date('F j, Y', strtotime($post['created_at']));?></i>
+                    <p class="preview-text">
+                        <?php echo html_entity_decode(substr($post['body'], 0, 150) . '...') ?>
+                    </p>
+                    <a href="single.php" class="btn read-more">Read More</a>
+                </div>
             </div>
-        </div>
+        <?php endforeach;?>
 
-        <div class="post clearfix">
-            <img src="assets/images/prog-post.jpg" alt="" class="post-image">
-            <div class="post-preview">
-                <h2><a href="single.php">How to make the most delicious burger</a></h2>
-                <i class="far fa-user"> Krayushkin Georgii</i>
-                &nbsp;
-                <i class="far fa-calendar"> 27 Января, 2024</i>
-                <p class="preview-text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Alias, dolor dolores nostrum porro possimus tempora.
-                </p>
-                <a href="single.php" class="btn read-more">Read More</a>
-            </div>
-        </div>
-
-        <div class="post clearfix">
-            <img src="assets/images/prog-post.jpg" alt="" class="post-image">
-            <div class="post-preview">
-                <h2><a href="single.php">How to make the most delicious burger</a></h2>
-                <i class="far fa-user"> Krayushkin Georgii</i>
-                &nbsp;
-                <i class="far fa-calendar"> 27 Января, 2024</i>
-                <p class="preview-text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Alias, dolor dolores nostrum porro possimus tempora.
-                </p>
-                <a href="single.php" class="btn read-more">Read More</a>
-            </div>
-        </div>
-
-        <div class="post clearfix">
-            <img src="assets/images/prog-post.jpg" alt="" class="post-image">
-            <div class="post-preview">
-                <h2><a href="single.php">How to make the most delicious burger</a></h2>
-                <i class="far fa-user"> Krayushkin Georgii</i>
-                &nbsp;
-                <i class="far fa-calendar"> 27 Января, 2024</i>
-                <p class="preview-text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Alias, dolor dolores nostrum porro possimus tempora.
-                </p>
-                <a href="single.php" class="btn read-more">Read More</a>
-            </div>
-        </div>
     </div>
 <!--    SIDEBAR-->
     <div class="sidebar">
