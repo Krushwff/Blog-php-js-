@@ -34,24 +34,20 @@ include(ROOT_PATH . "/app/controllers/users.php");?>
                 <thead>
                 <th>SN</th>
                 <th>Username</th>
-                <th>Role</th>
+                <th>Email</th>
                 <th colspan="2">Action</th>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Krayushkin</td>
-                    <td>admin</td>
-                    <td><a href="#" class="edit">edit</a></td>
-                    <td><a href="#" class="delete">delete</a></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Ivanov</td>
-                    <td>Author</td>
-                    <td><a href="#" class="edit">edit</a></td>
-                    <td><a href="#" class="delete">delete</a></td>
-                </tr>
+                <?php foreach ($admin_users as $key => $user): ?>
+                    <tr>
+                        <td><?php echo $key + 1; ?></td>
+                        <td><?php echo $user['username']; ?></td>
+                        <td><?php echo $user['email']; ?></td>
+                        <td><a href="edit.php?id=<?php echo $user['id'];?>" class="edit">edit</a></td>
+                        <td><a href="index.php?delete_id=<?php echo $user['id'];?>" class="delete">delete</a></td>
+                    </tr>
+                <?php endforeach;?>
+
                 </tbody>
             </table>
         </div>
