@@ -1,6 +1,6 @@
 <?php include("path.php");
 include(ROOT_PATH . "/app/controllers/users.php");
-?>
+guestsOnly()?>
 <!doctype html>
 <html lang="en">
 <head>

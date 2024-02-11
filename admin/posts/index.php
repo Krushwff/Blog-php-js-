@@ -1,5 +1,6 @@
 <?php include("../../path.php");
-include(ROOT_PATH . "/app/controllers/posts.php");?>
+include(ROOT_PATH . "/app/controllers/posts.php");
+adminOnly();?>
 <!doctype html>
 <html lang="en">
 <head>

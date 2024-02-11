@@ -1,4 +1,15 @@
-<?php include("path.php")?>
+<?php include("path.php");
+include(ROOT_PATH . "/app/controllers/posts.php");
+
+if (isset($_GET['id'])){
+    $post = selectOne('posts', ['id' => $_GET['id']]);
+}
+
+$topics = selectAll('topics');
+$posts = selectAll('posts', ['published' => 1]);
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -12,7 +23,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Candal&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <script src="https://vk.com/js/api/openapi.js?169" type="text/javascript"></script>
-    <title>Single Post</title>
+    <title><?php echo $post['title'];?> | Test-Blog</title>
 </head>
 <body>
 
@@ -24,54 +35,9 @@
         <!--    MAIN CONTENT-->
         <div class="main-content-wrapper">
         <div class="main-content single">
-            <h1 class="post-title">This is a title of the post</h1>
+            <h1 class="post-title"><?php echo $post['title'];?></h1>
             <div class="post-content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Dignissimos facilis neque, non odit quaerat reiciendis.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    A cumque dolorem, dolores eligendi magnam provident ullam.
-                    Iure laborum nam nulla voluptate.
-                    Eaque iusto omnis placeat quod repellat repudiandae tenetur totam.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut autem beatae corporis deserunt doloremque,
-                    dolores eaque eos expedita fuga illo illum laudantium magni non nulla odio placeat porro quaerat quas,
-                    quia recusandae repellendus saepe similique, sit totam ut veniam.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, quia?</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Dignissimos facilis neque, non odit quaerat reiciendis.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    A cumque dolorem, dolores eligendi magnam provident ullam.
-                    Iure laborum nam nulla voluptate.
-                    Eaque iusto omnis placeat quod repellat repudiandae tenetur totam.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut autem beatae corporis deserunt doloremque,
-                    dolores eaque eos expedita fuga illo illum laudantium magni non nulla odio placeat porro quaerat quas,
-                    quia recusandae repellendus saepe similique, sit totam ut veniam.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, quia?</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Dignissimos facilis neque, non odit quaerat reiciendis.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    A cumque dolorem, dolores eligendi magnam provident ullam.
-                    Iure laborum nam nulla voluptate.
-                    Eaque iusto omnis placeat quod repellat repudiandae tenetur totam.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut autem beatae corporis deserunt doloremque,
-                    dolores eaque eos expedita fuga illo illum laudantium magni non nulla odio placeat porro quaerat quas,
-                    quia recusandae repellendus saepe similique, sit totam ut veniam.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, quia?</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Dignissimos facilis neque, non odit quaerat reiciendis.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    A cumque dolorem, dolores eligendi magnam provident ullam.
-                    Iure laborum nam nulla voluptate.
-                    Eaque iusto omnis placeat quod repellat repudiandae tenetur totam.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut autem beatae corporis deserunt doloremque,
-                    dolores eaque eos expedita fuga illo illum laudantium magni non nulla odio placeat porro quaerat quas,
-                    quia recusandae repellendus saepe similique, sit totam ut veniam.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, quia?</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Dignissimos facilis neque, non odit quaerat reiciendis.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    A cumque dolorem, dolores eligendi magnam provident ullam.
-                    Iure laborum nam nulla voluptate.
-                    Eaque iusto omnis placeat quod repellat repudiandae tenetur totam.</p>
+                <?php echo html_entity_decode($post['body']);?>
             </div>
         </div>
         </div>
@@ -80,42 +46,23 @@
 
             <div class="section popular">
                 <h2 class="section-title">Popular Post</h2>
+<?php foreach ($posts as $p): ?>
+    <div class="post clearfix">
+        <img src="<?php echo BASE_URL . '/assets/images/' . $p['image'] ?> " alt="">
+        <a href="single.php?id=" class="title">
+            <h4><?php echo $p['title'] ?></h4></a>
+    </div>
+                <?php endforeach;?>
 
-                <div class="post clearfix">
-                    <img src="assets/images/prog-post.jpg" alt="">
-                    <a href="" class="title"><h4>How to progress in program</h4></a>
-                </div>
 
-                <div class="post clearfix">
-                    <img src="assets/images/prog-post.jpg" alt="">
-                    <a href="" class="title"><h4>How to progress in program</h4></a>
-                </div>
-
-                <div class="post clearfix">
-                    <img src="assets/images/prog-post.jpg" alt="">
-                    <a href="" class="title"><h4>How to progress in program</h4></a>
-                </div>
-
-                <div class="post clearfix">
-                    <img src="assets/images/prog-post.jpg" alt="">
-                    <a href="" class="title"><h4>How to progress in program</h4></a>
-                </div>
-
-                <div class="post clearfix">
-                    <img src="assets/images/prog-post.jpg" alt="">
-                    <a href="" class="title"><h4>How to progress in program</h4></a>
-                </div>
 
             </div>
             <div class="section topics">
                 <h2 class="section-title">Topics</h2>
                 <ul>
-                    <li><a href="#">Sport</a></li>
-                    <li><a href="#">Cooking</a></li>
-                    <li><a href="#">IT</a></li>
-                    <li><a href="#">CyberSport</a></li>
-                    <li><a href="#">Life</a></li>
-                    <li><a href="#">Learning</a></li>
+                    <?php foreach ($topics as $key => $topic): ?>
+                        <li><a href="<?php echo BASE_URL . '/index.php?t_id=' . $topic['id'] . '&name=' . $topic['name']  ?>"><?php echo $topic['name']; ?></a></li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
 

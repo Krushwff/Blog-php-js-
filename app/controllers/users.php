@@ -1,9 +1,10 @@
 <?php
 include (ROOT_PATH . "/app/database/db.php");
 include (ROOT_PATH . "/app/helpers/validateUser.php");
+include (ROOT_PATH . "/app/helpers/middleware.php");
 $table = 'users';
 
-$admin_users =selectAll($table, ['admin' => 1]);
+$admin_users =selectAll($table);
 
 
 $errors =array();
@@ -63,11 +64,12 @@ if (isset($_GET['id'])){
     $user = selectOne($table, ['id' => $_GET['id']]);
     $id = $user['id'];
     $username = $user['username'];
-    $admin = isset($user['admin']) ? 1 : 0;
+    $admin = $user['admin'] == 1 ? 1 : 0;
     $email = $user['email'];
 }
 
 if (isset($_POST['update-user'])){
+    adminOnly();
     $errors = validateUser($_POST);
 
     if(count($errors) === 0){
@@ -108,6 +110,7 @@ if (isset($_POST['login-btn'])){
 }
 
 if (isset($_GET['delete_id'])){
+    adminOnly();
     $count = delete($table, $_GET['delete_id']);
     $_SESSION['message'] = "Admin user deleted";
     $_SESSION['type'] = "success";
