@@ -25,7 +25,7 @@ function executeQuery($sql, $data)
 function selectAll($table, $conditions = [])
 {
     global $conn;
-    $sql = "SELECT * FROM $table";
+    $sql = "$table";
     if (empty($conditions)){
         $stmt = $conn->prepare($sql);
         $stmt->execute();
